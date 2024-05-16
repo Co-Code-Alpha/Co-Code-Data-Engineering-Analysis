@@ -1,7 +1,7 @@
-# from flask import Flask, request, jsonify
 # from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForCausalLM, pipeline
-# import numpy as np
 
+import numpy as np
+from flask import Flask, request, jsonify
 import transformers
 import torch
 
@@ -50,6 +50,34 @@ outputs = pipeline(
 print(outputs[0]["generated_text"][len(prompt):])
 
 
+
+app = Flask(__name__)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    input_text = request.get_json()['i love coding for sure']
+    inputs = pipeline.tokenizer.encode_plus(
+        input_text,
+        add_special_tokens=True,
+        max_length=512,
+        return_attention_mask=True,
+        return_tensors='pt'
+    )
+
+    outputs = pipeline.model(**inputs)
+    logits = outputs.logits
+    probs = np.exp(logits) / np.sum(np.exp(logits), axis=-1, keepdims=True)
+
+    return jsonify({'probs': probs.tolist()})
+
+
+if __name__ == "__main__":
+  # Flask 서버 실행
+  app.run(host="0.0.0.0", port=5000)
+
+
+
+
 # 서울과학기술대학교 MLP연구실은 멀티모달 자연어처리 연구를 하고 있습니다. 구성원은 임경태 교수와 김민준, 김상민, 최창수, 원인호, 유한결, 임현석, 송승우, 육정훈, 신동재 학생이 있습니다.
 
 
@@ -78,26 +106,3 @@ print(outputs[0]["generated_text"][len(prompt):])
 # print(pipe("i love coding for sure"))
 
 
-# app = Flask(__name__)
-
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     input_text = request.get_json()['i love coding for sure']
-#     inputs = tokenizer.encode_plus(
-#         input_text,
-#         add_special_tokens=True,
-#         max_length=512,
-#         return_attention_mask=True,
-#         return_tensors='pt'
-#     )
-
-#     outputs = model(**inputs)
-#     logits = outputs.logits
-#     probs = np.exp(logits) / np.sum(np.exp(logits), axis=-1, keepdims=True)
-
-#     return jsonify({'probs': probs.tolist()})
-
-
-# if __name__ == "__main__":
-#   # Flask 서버 실행
-#   app.run(host="0.0.0.0", port=5000)
