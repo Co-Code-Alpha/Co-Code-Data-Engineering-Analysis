@@ -78,31 +78,3 @@ if __name__ == "__main__":
 
 
 
-# 서울과학기술대학교 MLP연구실은 멀티모달 자연어처리 연구를 하고 있습니다. 구성원은 임경태 교수와 김민준, 김상민, 최창수, 원인호, 유한결, 임현석, 송승우, 육정훈, 신동재 학생이 있습니다.
-
-
-
-#
-# new_messages = [
-#     {"role": "user", "content": "what is the gross margin for Q4 FY24?"}
-# ]
-
-# new_formatted_input = get_formatted_input(new_messages, document)
-# new_tokenized_prompt = tokenizer(tokenizer.bos_token + new_formatted_input, return_tensors="pt").to(model.device)
-
-# new_outputs = model.generate(input_ids=new_tokenized_prompt.input_ids, attention_mask=new_tokenized_prompt.attention_mask, max_new_tokens=128, eos_token_id=terminators)
-
-# new_response = new_outputs[0][new_tokenized_prompt.input_ids.shape[-1]:]
-# print(tokenizer.decode(new_response, skip_special_tokens=True))
-
-
-
-# # Llama 3 모델 로드
-# model_name = "nvidia/Llama3-ChatQA-1.5-8B"
-# model = AutoModelForSequenceClassification.from_pretrained(model_name)
-# tokenizer = AutoTokenizer.from_pretrained(model_name)
-# pipe = pipeline("text-generation", model_name)
-
-# print(pipe("i love coding for sure"))
-
-
