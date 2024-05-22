@@ -48,32 +48,8 @@ outputs = pipeline(
 )
 
 print(outputs[0]["generated_text"][len(prompt):])
+instruction = input()
 
-
-
-app = Flask(__name__)
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    input_text = request.get_json()['i love coding for sure']
-    inputs = pipeline.tokenizer.encode_plus(
-        input_text,
-        add_special_tokens=True,
-        max_length=512,
-        return_attention_mask=True,
-        return_tensors='pt'
-    )
-
-    outputs = pipeline.model(**inputs)
-    logits = outputs.logits
-    probs = np.exp(logits) / np.sum(np.exp(logits), axis=-1, keepdims=True)
-
-    return jsonify({'probs': probs.tolist()})
-
-
-if __name__ == "__main__":
-  # Flask 서버 실행
-  app.run(host="0.0.0.0", port=5000)
 
 
 
