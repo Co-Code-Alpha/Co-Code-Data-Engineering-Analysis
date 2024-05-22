@@ -25,7 +25,6 @@ import gc
 transformers.logging.set_verbosity_error()
 
 model_id = "MLP-KTLim/llama-3-Korean-Bllossom-8B"
-git commit -m "[CON]ModelX in Colab & [ADD]reqTest for request Test with ngrok,Flask
 # 모델을 초기화
 pipeline = transformers.pipeline(
     "text-generation",
@@ -80,7 +79,7 @@ def generate_text(instruction):
         # Generate the text
         outputs = pipeline(
             prompt,
-            max_new_tokens=1024,
+            max_new_tokens=480,
             eos_token_id=terminators,
             # eos_token_id=eos_token_id,
             # empty_token_id=empty_token_id,

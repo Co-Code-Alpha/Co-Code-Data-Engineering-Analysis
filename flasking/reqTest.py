@@ -1,8 +1,8 @@
 import requests
 
-url = "https://6832-34-125-51-159.ngrok-free.app/generate"
+url = "https://256e-34-124-203-232.ngrok-free.app/generate"
 data = {
-    "instruction": "곽우진은 롤 다이아를 찍을수있을까?"
+    "instruction": "graph 자료구조 C++ 예시 코드 짜줘"
 }
 
 response = requests.post(url, json=data)
