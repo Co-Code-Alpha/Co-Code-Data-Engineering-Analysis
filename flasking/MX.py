@@ -8,7 +8,7 @@
 
 from pyngrok import ngrok
 
-ngrok.set_auth_token("2giGdEYdV50RqaQNgIKHujrYlEt_3bT1Mp5tcdKfvjQX3Lksc")# !ngrok http 5000
+ngrok.set_auth_token(os.getenv("NGROK_AUTH_TOKEN"))# !ngrok http 5000
 
 
 # from pyngrok import ngrok
